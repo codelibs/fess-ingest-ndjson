@@ -1,4 +1,5 @@
-NDJSON Ingest for Fess [![Build Status](https://travis-ci.org/codelibs/fess-ingest-ndjson.svg?branch=master)](https://travis-ci.org/codelibs/fess-ingest-ndjson)
+NDJSON Ingest for Fess
+[![Java CI with Maven](https://github.com/codelibs/fess-ingest-ndjson/actions/workflows/maven.yml/badge.svg)](https://github.com/codelibs/fess-ingest-ndjson/actions/workflows/maven.yml)
 ==========================
 
 ## Overview
