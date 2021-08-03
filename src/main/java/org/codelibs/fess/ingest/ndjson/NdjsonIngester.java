@@ -21,6 +21,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -103,7 +104,7 @@ public class NdjsonIngester extends Ingester {
                             currentWriter.write(json);
                             currentWriter.write("\n");
                             count++;
-                        } catch (Exception e) {
+                        } catch (final Exception e) {
                             logger.warn("Failed to write {}", target, e);
                         }
                     }
@@ -112,7 +113,7 @@ public class NdjsonIngester extends Ingester {
                 if (logger.isDebugEnabled()) {
                     logger.debug("finishing writer.");
                 }
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 logger.warn("interrupted.", e);
             }
         }, "ingest-ndjson");
@@ -124,7 +125,7 @@ public class NdjsonIngester extends Ingester {
             try {
                 currentWriter.flush();
                 currentWriter.close();
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 logger.warn("Failed to close writer.", e);
             }
         }
@@ -132,7 +133,7 @@ public class NdjsonIngester extends Ingester {
             currentWriter = new BufferedWriter(
                     new FileWriter(new File(outputDir, filePrefix + ComponentUtil.getSystemHelper().getCurrentTimeAsLong() + ".ndjson"),
                             Constants.UTF_8_CHARSET));
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new IORuntimeException(e);
         }
     }
@@ -143,12 +144,12 @@ public class NdjsonIngester extends Ingester {
         if (outputDir != null) {
             try {
                 writerThread.join();
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 logger.warn("interrupted.", e);
             }
             try {
                 currentWriter.flush();
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 logger.warn("Failed to flush the writer.", e);
             } finally {
                 CloseableUtil.closeQuietly(currentWriter);
@@ -173,7 +174,7 @@ public class NdjsonIngester extends Ingester {
 
         final Map<String, Object> map = filterKeySet == null ? target
                 : target.entrySet().stream().filter(e -> filterKeySet.contains(e.getKey()))
-                        .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+                        .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
         if (logger.isDebugEnabled()) {
             logger.debug("filtered object: {}", map);
         }
@@ -193,7 +194,7 @@ public class NdjsonIngester extends Ingester {
             @SuppressWarnings("unchecked")
             final Map<String, Object> map = (Map<String, Object>) transformer.getData(accessResultData);
             offer(map);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.warn("Failed to add {}.", target, e);
         }
         return target;
