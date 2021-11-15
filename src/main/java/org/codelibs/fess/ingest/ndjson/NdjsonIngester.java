@@ -51,6 +51,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class NdjsonIngester extends Ingester {
     private static final Logger logger = LoggerFactory.getLogger(NdjsonIngester.class);
+    private static final String NONE = "none";
     protected String outputDir;
     protected String filePrefix;
     protected ObjectMapper objectMapper = new ObjectMapper();
@@ -190,10 +191,13 @@ public class NdjsonIngester extends Ingester {
             final AccessResult<?> accessResult = ComponentUtil.getComponent("accessResult");
             accessResult.init(responseData, target);
             final AccessResultData<?> accessResultData = accessResult.getAccessResultData();
-            final Transformer transformer = ComponentUtil.getComponent(accessResultData.getTransformerName());
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> map = (Map<String, Object>) transformer.getData(accessResultData);
-            offer(map);
+            final String transformerName = accessResultData.getTransformerName();
+            if (StringUtil.isNotBlank(transformerName) && !NONE.equalsIgnoreCase(transformerName)) {
+                final Transformer transformer = ComponentUtil.getComponent(transformerName);
+                @SuppressWarnings("unchecked")
+                final Map<String, Object> map = (Map<String, Object>) transformer.getData(accessResultData);
+                offer(map);
+            }
         } catch (final Exception e) {
             logger.warn("Failed to add {}.", target, e);
         }
