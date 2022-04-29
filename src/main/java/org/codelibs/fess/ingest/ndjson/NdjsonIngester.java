@@ -42,6 +42,7 @@ import org.codelibs.fess.crawler.entity.AccessResultData;
 import org.codelibs.fess.crawler.entity.ResponseData;
 import org.codelibs.fess.crawler.entity.ResultData;
 import org.codelibs.fess.crawler.transformer.Transformer;
+import org.codelibs.fess.entity.DataStoreParams;
 import org.codelibs.fess.ingest.Ingester;
 import org.codelibs.fess.util.ComponentUtil;
 import org.slf4j.Logger;
@@ -159,7 +160,7 @@ public class NdjsonIngester extends Ingester {
     }
 
     @Override
-    public Map<String, Object> process(final Map<String, Object> target, final Map<String, String> params) {
+    public Map<String, Object> process(final Map<String, Object> target, final DataStoreParams params) {
         if (outputDir == null) {
             return target;
         }

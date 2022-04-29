@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.codelibs.fess.entity.DataStoreParams;
 import org.codelibs.fess.util.ComponentUtil;
 import org.dbflute.utflute.lastaflute.LastaFluteTestCase;
 
@@ -53,7 +54,7 @@ public class NdjsonIngesterTest extends LastaFluteTestCase {
 
     public void test_ds() {
         Map<String, Object> target = new HashMap<>();
-        Map<String, String> params = new HashMap<>();
+        DataStoreParams params = new DataStoreParams();
         target.put("aaa", "111");
         ingester.process(target, params);
         assertEquals("111", ingester.queue.poll().get("aaa"));
