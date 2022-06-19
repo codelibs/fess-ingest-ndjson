@@ -8,7 +8,7 @@ Fess Ingest NDJSON stores crawled contents to a file with NDJSON format.
 
 ## Download
 
-See [Maven Repository](http://central.maven.org/maven2/org/codelibs/fess/fess-ingest-ndjson/).
+See [Maven Repository](https://repo1.maven.org/maven2/org/codelibs/fess/fess-ingest-ndjson/).
 
 ## Installation
 
