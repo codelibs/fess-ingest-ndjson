@@ -31,6 +31,8 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.codelibs.core.exception.IORuntimeException;
 import org.codelibs.core.io.CloseableUtil;
 import org.codelibs.core.lang.StringUtil;
@@ -45,13 +47,11 @@ import org.codelibs.fess.crawler.transformer.Transformer;
 import org.codelibs.fess.entity.DataStoreParams;
 import org.codelibs.fess.ingest.Ingester;
 import org.codelibs.fess.util.ComponentUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class NdjsonIngester extends Ingester {
-    private static final Logger logger = LoggerFactory.getLogger(NdjsonIngester.class);
+    private static final Logger logger = LogManager.getLogger(NdjsonIngester.class);
     private static final String NONE = "none";
     protected String outputDir;
     protected String filePrefix;
