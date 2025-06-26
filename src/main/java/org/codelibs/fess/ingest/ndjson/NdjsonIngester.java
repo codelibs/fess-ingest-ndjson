@@ -28,9 +28,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codelibs.core.exception.IORuntimeException;
@@ -49,6 +46,9 @@ import org.codelibs.fess.ingest.Ingester;
 import org.codelibs.fess.util.ComponentUtil;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 public class NdjsonIngester extends Ingester {
     private static final Logger logger = LogManager.getLogger(NdjsonIngester.class);
